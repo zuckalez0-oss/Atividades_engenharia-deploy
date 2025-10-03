@@ -1,0 +1,16 @@
+{
+  "usuarios": [
+    {
+      "login": "user1",
+      "nome": "Matheusr",
+      "is_admin": true,
+      "senha_hash": "pbkdf2:sha256:1000000$bAGWQGlsdWpBX9V1$b6bc4517b611a89557712557ac249906614d43a2706f7c658e1778cae6b804d6"
+    },
+    {
+      "login": "user2",
+      "nome": "BrunaJ",
+      "is_admin": false,
+      "senha_hash": "pbkdf2:sha256:1000000$AoZg5Ydn52YV8nid$c6b59891a2026e7426330baa854c48db4967d2a0ab762bff4247d699513c2a0f"
+    }
+  ]
+}

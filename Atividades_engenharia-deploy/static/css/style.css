@@ -1,0 +1,367 @@
+/* --- FONTES E VARIÁVEIS GLOBAIS --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --cor-primaria-fundo: #0a192f; /* Azul Marinho (INOVA PROCESS) */
+    --cor-secundaria-fundo: #172a45;
+    --cor-texto-principal: #ccd6f6;
+    --cor-texto-secundario: #8892b0;
+    --cor-destaque: #00bfff; /* Ciano Vibrante */
+    --cor-destaque-hover: #17d5ff;
+    --cor-fundo-card: #0e223e;
+    --cor-borda: #233554;
+    --sombra: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+    --fonte-principal: 'Poppins', sans-serif;
+}
+
+/* --- RESET E ESTILOS BASE --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--fonte-principal);
+    background-color: var(--cor-primaria-fundo);
+    color: var(--cor-texto-principal);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* --- CABEÇALHO E NAVEGAÇÃO RESPONSIVA --- */
+header {
+    background-color: rgba(10, 25, 47, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 0 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+header h1 a {
+    color: var(--cor-destaque);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.nav-links {
+    display: none; /* Escondido no mobile */
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-link {
+    color: var(--cor-texto-principal);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+.nav-link:hover { color: var(--cor-destaque); }
+
+.nav-user {
+    color: var(--cor-texto-secundario);
+    font-size: 0.9rem;
+}
+
+/* Menu Hambúrguer */
+.menu-toggle {
+    display: block; /* Visível no mobile */
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.menu-toggle .icon-bar {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: var(--cor-destaque);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+/* --- CONTEÚDO PRINCIPAL E CARDS --- */
+main {
+    padding: 100px 15px 20px 15px; /* Espaço para o header fixo */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: var(--cor-fundo-card);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 2rem;
+    box-shadow: var(--sombra);
+}
+
+.card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.card-header h2 {
+    margin: 0;
+    color: var(--cor-texto-principal);
+    font-size: 1.4rem;
+}
+.card-header > div {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* --- TABELAS RESPONSIVAS --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table thead {
+    display: none; /* Cabeçalho escondido no mobile */
+}
+table tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 4px;
+    padding: 15px;
+}
+table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--cor-borda);
+    text-align: right;
+}
+table td:last-child {
+    border-bottom: none;
+}
+table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    text-align: left;
+    margin-right: 10px;
+    color: var(--cor-texto-secundario);
+}
+table td a {
+    color: var(--cor-destaque);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* --- BOTÕES E FORMULÁRIOS --- */
+.btn {
+    padding: 10px 20px;
+    border: 1px solid var(--cor-destaque);
+    border-radius: 4px;
+    background-color: transparent;
+    color: var(--cor-destaque);
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+.btn-primary {
+    background-color: var(--cor-destaque);
+    color: var(--cor-primaria-fundo);
+}
+.btn:hover { background-color: rgba(0, 191, 255, 0.1); }
+.btn-primary:hover { background-color: var(--cor-destaque-hover); border-color: var(--cor-destaque-hover); }
+
+.form-group { margin-bottom: 1.5rem; }
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--cor-texto-secundario);
+}
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: var(--cor-primaria-fundo);
+    color: var(--cor-texto-principal);
+}
+.form-group textarea { resize: vertical; }
+
+/* --- EMBLEMAS DE STATUS E PRIORIDADE --- */
+.status-badge, .priority-badge {
+    padding: 0.25em 0.6em;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 15px;
+}
+/* ... (todo o seu CSS anterior até a seção de botões) ... */
+
+/* --- BOTÕES E FORMULÁRIOS --- */
+/* ... */
+
+/* **[NOVO]** ESTILO PARA AÇÕES DO DASHBOARD */
+.dashboard-actions {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os botões quebrem a linha */
+    gap: 10px;       /* Espaçamento entre os botões */
+    margin-top: 1rem;
+}
+
+/* **[NOVO]** MELHORIA NO TEXTO DE OBSERVAÇÕES */
+pre.change-values, .details-full-width pre {
+    white-space: pre-wrap;   /* Permite que o texto quebre a linha */
+    word-wrap: break-word; /* Força a quebra de palavras longas */
+}
+
+/* --- EMBLEMAS DE STATUS E PRIORIDADE --- */
+/* ... (resto do CSS sem alterações) ... */
+
+/* Cores (já existentes) */
+.status-iniciado { background-color: #0d6efd; color: #fff; }
+.status-com-o-compras { background-color: #6f42c1; color: #fff; }
+.status-com-a-diretoria { background-color: #ffc107; color: #333; }
+.status-concluido { background-color: #198754; color: #fff; }
+.priority-p-1 { background-color: #dc3545; color: #fff; }
+.priority-p-2 { background-color: #fd7e14; color: #fff; }
+.priority-p-3 { background-color: #0d6efd; color: #fff; }
+.priority-p-4 { background-color: #198754; color: #fff; }
+.priority-p-5 { background-color: #6c757d; color: #fff; }
+
+/* --- PÁGINA DE DETALHES --- */
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Coluna única no mobile */
+    gap: 1rem;
+}
+.details-grid p {
+    background-color: var(--cor-secundaria-fundo);
+    padding: 10px;
+    border-radius: 4px;
+    border-left: 3px solid var(--cor-destaque);
+}
+
+/* --- HISTÓRICO --- */
+.history-timeline {
+    position: relative;
+    padding-left: 20px;
+}
+.history-timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background-color: var(--cor-borda);
+}
+.history-item { position: relative; margin-bottom: 1.5rem; }
+.history-item::before {
+    content: '';
+    position: absolute; left: -24px; top: 5px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background-color: var(--cor-destaque);
+}
+
+/* --- MEDIA QUERIES PARA DESKTOP --- */
+@media (min-width: 768px) {
+    .menu-toggle { display: none; }
+    .nav-links { display: flex; }
+    
+    .card-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    table {
+        border: 1px solid var(--cor-borda);
+        border-radius: 4px;
+        padding: 0;
+    }
+    table thead { display: table-header-group; }
+    table tr {
+        display: table-row;
+        border: none;
+        padding: 0;
+    }
+    table td {
+        display: table-cell;
+        text-align: left;
+        padding: 12px 15px;
+    }
+    table td::before { display: none; }
+
+    .details-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+/* ... (todo o seu CSS anterior) ... */
+
+/* --- [NOVO] ESTILOS PARA ANEXO NA PÁGINA DE DETALHES --- */
+.anexo-container {
+    margin-top: 1rem;
+}
+.anexo-container h3 {
+    color: var(--cor-texto-secundario);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+.anexo-thumbnail {
+    max-width: 150px;
+    border-radius: 4px;
+    border: 2px solid var(--cor-borda);
+    cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.anexo-thumbnail:hover {
+    transform: scale(1.05);
+    border-color: var(--cor-destaque);
+}
+
+/* --- [NOVO] ESTILOS PARA LIGHTBOX (VISUALIZADOR DE IMAGEM) --- */
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: none; /* Começa escondido */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+.lightbox-image {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 4px;
+}
+.lightbox-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    font-size: 2.5rem;
+    color: #fff;
+    cursor: pointer;
+    background: none;
+    border: none;
+}

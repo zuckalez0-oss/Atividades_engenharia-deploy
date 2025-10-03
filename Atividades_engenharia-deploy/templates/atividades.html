@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Todas as Atividades{% endblock %}
+
+{% block content %}
+
+<!-- PAINEL DE ATIVIDADES EM ANDAMENTO -->
+<div class="card">
+    <div class="card-header">
+        <h2>Atividades em Andamento</h2>
+        <a href="{{ url_for('nova_atividade') }}" class="btn btn-primary">Nova Atividade</a>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Prioridade</th>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for atividade in atividades_em_andamento %}
+            <tr>
+                <td data-label="Prioridade"><span class="priority-badge priority-{{ atividade.prioridade.lower() }}">{{ atividade.prioridade }}</span></td>
+                <td data-label="ID">{{ atividade.id }}</td>
+                <td data-label="Nome">{{ atividade.nome_atividade }}</td>
+                <td data-label="Status"><span class="status-badge status-{{ atividade.status.lower().replace(' ', '-').replace('ã', 'a').replace('ç', 'c') }}">{{ atividade.status }}</span></td>
+                <td data-label="Ações"><a href="{{ url_for('detalhes_atividade', atividade_id=atividade.id) }}">Ver Detalhes</a></td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" style="text-align: center;">Nenhuma atividade em andamento.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- PAINEL DE ATIVIDADES CONCLUÍDAS -->
+<div class="card">
+    <div class="card-header">
+        <h2>Atividades Concluídas</h2>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Prioridade</th>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for atividade in atividades_concluidas %}
+            <tr>
+                <td data-label="Prioridade"><span class="priority-badge priority-{{ atividade.prioridade.lower() }}">{{ atividade.prioridade }}</span></td>
+                <td data-label="ID">{{ atividade.id }}</td>
+                <td data-label="Nome">{{ atividade.nome_atividade }}</td>
+                <td data-label="Status"><span class="status-badge status-concluido">{{ atividade.status }}</span></td>
+                <td data-label="Ações"><a href="{{ url_for('detalhes_atividade', atividade_id=atividade.id) }}">Ver Detalhes</a></td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" style="text-align: center;">Nenhuma atividade concluída.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

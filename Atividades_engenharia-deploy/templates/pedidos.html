@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Pedidos de Produção{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Pedidos de Produção</h2>
+        <a href="{{ url_for('novo_pedido') }}" class="btn btn-primary">Novo Pedido</a>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Pedido</th>
+                <th>Entrega Prevista</th>
+                <th>Solicitante</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in pedidos %}
+            <tr>
+                <td data-label="ID">{{ pedido.id }}</td>
+                <td data-label="Nome">{{ pedido.nome }}</td>
+                <td data-label="Pedido">{{ pedido.pedido or 'N/A' }}</td>
+                <td data-label="Entrega Prevista">{{ pedido.data_prevista_entrega.strftime('%d/%m/%Y') if pedido.data_prevista_entrega else 'N/A' }}</td>
+                <td data-label="Solicitante">{{ pedido.solicitante or 'N/A' }}</td>
+                <td data-label="Ações"><a href="{{ url_for('detalhes_pedido', pedido_id=pedido.id) }}">Ver Detalhes</a></td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6" style="text-align: center;">Nenhum pedido registrado ainda.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

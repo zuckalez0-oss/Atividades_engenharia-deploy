@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>{{ title }}</h2>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="nome">Nome do Pedido</label>
+            <input type="text" id="nome" name="nome" required>
+        </div>
+        <div class="form-group">
+            <label for="pedido">Nº do Pedido</label>
+            <input type="text" id="pedido" name="pedido">
+        </div>
+        <div class="form-group">
+            <label for="data_termino_producao">Data de Término da Produção</label>
+            <input type="date" id="data_termino_producao" name="data_termino_producao">
+        </div>
+        <div class="form-group">
+            <label for="data_prevista_entrega">Data Prevista de Entrega</label>
+            <input type="date" id="data_prevista_entrega" name="data_prevista_entrega">
+        </div>
+        <div class="form-group">
+            <label for="centro_de_custo">Centro de Custo</label>
+            <input type="text" id="centro_de_custo" name="centro_de_custo">
+        </div>
+        <div class="form-group">
+            <label for="solicitante">Solicitante</label>
+            <input type="text" id="solicitante" name="solicitante">
+        </div>
+        <div class="form-group">
+            <label for="destino">Destino</label>
+            <input type="text" id="destino" name="destino">
+        </div>
+        <div class="form-group">
+            <label for="anexo_imagem">Anexar Foto (opcional)</label>
+            <input type="file" id="anexo_imagem" name="anexo_imagem" accept="image/*">
+        </div>
+        <div class="form-group">
+            <label for="anexo_arquivo">Anexar Documento (PDF, DOCX, etc.)</label>
+            <input type="file" id="anexo_arquivo" name="anexo_arquivo">
+        </div>
+        <div class="form-group">
+            <label for="observacoes">Observações</label>
+            <textarea id="observacoes" name="observacoes" rows="6"></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Salvar Pedido</button>
+        <a href="{{ url_for('todos_pedidos') }}" class="btn">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

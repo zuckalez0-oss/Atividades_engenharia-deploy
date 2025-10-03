@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Dashboard</h2>
+    </div>
+    <!-- **MUDANÇA AQUI PARA MELHORAR RESPONSIVIDADE** -->
+    <div class="dashboard-actions">
+        <a href="{{ url_for('nova_atividade') }}" class="btn btn-primary">Nova Atividade Eng.</a>
+        <a href="{{ url_for('novo_pedido') }}" class="btn btn-primary">Novo Pedido Prod.</a>
+    </div>
+</div>
+
+<!-- Card de Últimas Atividades de Engenharia -->
+<div class="card">
+    <div class="card-header">
+        <h3>Últimas Atividades de Engenharia</h3>
+        <a href="{{ url_for('todas_atividades') }}" class="btn">Ver Todas</a>
+    </div>
+    <!-- (Tabela de atividades sem alterações) -->
+    <table>
+        <thead>
+            <tr><th>Prioridade</th><th>ID</th><th>Nome</th><th>Status</th><th>Ações</th></tr>
+        </thead>
+        <tbody>
+            {% for atividade in ultimas_atividades %}
+            <tr>
+                <td data-label="Prioridade"><span class="priority-badge priority-{{ atividade.prioridade.lower() }}">{{ atividade.prioridade }}</span></td>
+                <td data-label="ID">{{ atividade.id }}</td>
+                <td data-label="Nome">{{ atividade.nome_atividade }}</td>
+                <td data-label="Status"><span class="status-badge status-{{ atividade.status.lower().replace(' ', '-').replace('ã', 'a').replace('ç', 'c') }}">{{ atividade.status }}</span></td>
+                <td data-label="Ações"><a href="{{ url_for('detalhes_atividade', atividade_id=atividade.id) }}">Ver Detalhes</a></td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" style="text-align: center;">Nenhuma atividade registrada.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Card de Últimos Pedidos de Produção -->
+<div class="card">
+    <div class="card-header">
+        <h3>Últimos Pedidos de Produção</h3>
+        <a href="{{ url_for('todos_pedidos') }}" class="btn">Ver Todos</a>
+    </div>
+    <!-- (Tabela de pedidos sem alterações) -->
+    <table>
+        <thead>
+            <tr><th>ID</th><th>Nome</th><th>Pedido</th><th>Entrega Prevista</th><th>Ações</th></tr>
+        </thead>
+        <tbody>
+            {% for pedido in ultimos_pedidos %}
+            <tr>
+                <td data-label="ID">{{ pedido.id }}</td>
+                <td data-label="Nome">{{ pedido.nome }}</td>
+                <td data-label="Pedido">{{ pedido.pedido or 'N/A' }}</td>
+                <td data-label="Entrega Prevista">{{ pedido.data_prevista_entrega.strftime('%d/%m/%Y') if pedido.data_prevista_entrega else 'N/A' }}</td>
+                <td data-label="Ações"><a href="{{ url_for('detalhes_pedido', pedido_id=pedido.id) }}">Ver Detalhes</a></td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" style="text-align: center;">Nenhum pedido de produção registrado.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

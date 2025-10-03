@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>{{ title }}</h2>
+    </div>
+
+    <!-- **MUDANÇA IMPORTANTE AQUI** -->
+    <form method="POST" enctype="multipart/form-data">
+        <!-- (Todos os campos anteriores: nome, prioridade, etc.) -->
+        <div class="form-group">
+            <label for="nome_atividade">Nome da Atividade</label>
+            <input type="text" id="nome_atividade" name="nome_atividade" value="{{ atividade.nome_atividade if atividade else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label for="prioridade">Prioridade</label>
+            <select id="prioridade" name="prioridade">
+                <option value="P-1" {% if atividade and atividade.prioridade == 'P-1' %}selected{% endif %}>P-1 (Urgente)</option>
+                <option value="P-2" {% if atividade and atividade.prioridade == 'P-2' %}selected{% endif %}>P-2 (Alta)</option>
+                <option value="P-3" {% if (atividade and atividade.prioridade == 'P-3') or not atividade %}selected{% endif %}>P-3 (Média)</option>
+                <option value="P-4" {% if atividade and atividade.prioridade == 'P-4' %}selected{% endif %}>P-4 (Baixa)</option>
+                <option value="P-5" {% if atividade and atividade.prioridade == 'P-5' %}selected{% endif %}>P-5 (Muito Baixa)</option>
+            </select>
+        </div>
+        
+        <!-- **NOVO CAMPO DE UPLOAD DE IMAGEM** -->
+        <div class="form-group">
+            <label for="imagem">Anexar Foto (opcional)</label>
+            <input type="file" id="imagem" name="imagem" accept="image/png, image/jpeg, image/gif">
+            {% if atividade and atividade.imagem_anexo %}
+                <small>Anexo atual: {{ atividade.imagem_anexo }}. Enviar um novo arquivo irá substituí-lo.</small>
+            {% endif %}
+        </div>
+
+        <!-- (Restante dos campos) -->
+        <div class="form-group">
+            <label for="pedido">Pedido</label>
+            <input type="text" id="pedido" name="pedido" value="{{ atividade.pedido if atividade else '' }}">
+        </div>
+        <div class="form-group">
+            <label for="solicitante">Solicitante</label>
+            <input type="text" id="solicitante" name="solicitante" value="{{ atividade.solicitante if atividade else '' }}">
+        </div>
+        <div class="form-group">
+            <label for="centro_de_custo">Centro de Custo</label>
+            <input type="text" id="centro_de_custo" name="centro_de_custo" value="{{ atividade.centro_de_custo if atividade else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label for="local_de_entrega">Local de Entrega</label>
+            <input type="text" id="local_de_entrega" name="local_de_entrega" value="{{ atividade.local_de_entrega if atividade else '' }}">
+        </div>
+        <div class="form-group">
+            <label for="obra_destino">Obra / Destino</label>
+            <input type="text" id="obra_destino" name="obra_destino" value="{{ atividade.obra_destino if atividade else '' }}">
+        </div>
+        {% if atividade %}
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+                <option value="Iniciado" {% if atividade.status == 'Iniciado' %}selected{% endif %}>Iniciado</option>
+                <option value="Com o Compras" {% if atividade.status == 'Com o Compras' %}selected{% endif %}>Com o Compras</option>
+                <option value="Com a Diretoria" {% if atividade.status == 'Com a Diretoria' %}selected{% endif %}>Com a Diretoria</option>
+                <option value="Concluído" {% if atividade.status == 'Concluído' %}selected{% endif %}>Concluído</option>
+            </select>
+        </div>
+        {% endif %}
+        <div class="form-group">
+            <label for="observacoes">Observações</label>
+            <textarea id="observacoes" name="observacoes" rows="6">{{ atividade.observacoes if atividade else '' }}</textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="{{ url_for('todas_atividades') }}" class="btn">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

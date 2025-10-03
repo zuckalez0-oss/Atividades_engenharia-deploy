@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Detalhes do Pedido{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Detalhes do Pedido #{{ pedido.id }}</h2>
+        <a href="{{ url_for('todos_pedidos') }}" class="btn">Voltar para Lista</a>
+    </div>
+
+    <div class="details-grid">
+        <p><strong>Nome:</strong> {{ pedido.nome }}</p>
+        <p><strong>Nº do Pedido:</strong> {{ pedido.pedido or 'N/A' }}</p>
+        <p><strong>Término da Produção:</strong> {{ pedido.data_termino_producao.strftime('%d/%m/%Y') if pedido.data_termino_producao else 'N/A' }}</p>
+        <p><strong>Previsão de Entrega:</strong> {{ pedido.data_prevista_entrega.strftime('%d/%m/%Y') if pedido.data_prevista_entrega else 'N/A' }}</p>
+        <p><strong>Centro de Custo:</strong> {{ pedido.centro_de_custo or 'N/A' }}</p>
+        <p><strong>Solicitante:</strong> {{ pedido.solicitante or 'N/A' }}</p>
+        <p><strong>Destino:</strong> {{ pedido.destino or 'N/A' }}</p>
+        <p><strong>Criado por:</strong> {{ pedido.criado_por }} em {{ pedido.data_criacao.strftime('%d/%m/%Y') }}</p>
+        <div class="details-full-width">
+            <strong>Observações:</strong>
+            <pre>{{ pedido.observacoes or 'Nenhuma.' }}</pre>
+        </div>
+    </div>
+    
+    <div class="anexos-section">
+        {% if pedido.anexo_imagem_filename %}
+        <div class="anexo-container">
+            <h3>Anexo de Imagem</h3>
+            <!-- **CORREÇÃO APLICADA AQUI** -->
+            <img src="{{ url_for('uploaded_file', folder='pedidos', filename=pedido.anexo_imagem_filename) }}" 
+                 alt="Anexo de imagem" class="anexo-thumbnail" id="anexo-thumbnail">
+        </div>
+        {% endif %}
+        {% if pedido.anexo_arquivo_filename %}
+        <div class="anexo-container">
+            <h3>Anexo de Documento</h3>
+            <!-- **CORREÇÃO APLICADA AQUI** -->
+            <a href="{{ url_for('uploaded_file', folder='pedidos', filename=pedido.anexo_arquivo_filename) }}" class="btn" download>
+                Baixar {{ pedido.anexo_arquivo_filename.split('.')[-1].upper() }}
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- (Lightbox e Script sem alterações) -->
+<div class="lightbox-overlay" id="lightbox-overlay">
+    <button class="lightbox-close" id="lightbox-close">&times;</button>
+    <div class="lightbox-content"><img src="" alt="Visualização do anexo" class="lightbox-image" id="lightbox-image"></div>
+</div>
+<script>
+    const thumbnail = document.getElementById('anexo-thumbnail');
+    const lightboxOverlay = document.getElementById('lightbox-overlay');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxClose = document.getElementById('lightbox-close');
+    if (thumbnail) { thumbnail.addEventListener('click', () => { lightboxImage.src = thumbnail.src; lightboxOverlay.style.display = 'flex'; }); }
+    if (lightboxClose) { lightboxClose.addEventListener('click', () => { lightboxOverlay.style.display = 'none'; }); }
+    if (lightboxOverlay) { lightboxOverlay.addEventListener('click', (event) => { if (event.target === lightboxOverlay) { lightboxOverlay.style.display = 'none'; } }); }
+</script>
+{% endblock %}
